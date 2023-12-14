@@ -1,5 +1,4 @@
-# Specialization-Project
-# Model Development of an Aerobic Fed-Batch Fermentation
+# Content Description
 
 This repository contains the most important files for the specialization project TKP4580.
 Each model has its own folder including simulation files, parameter estimation files, and experimental data.
