@@ -49,7 +49,7 @@ bp = x(5);
 bp2 = x(6);
 
 %defining lower boundaries for all states
-Volume(Volume<0.00001) = 0.00001; %skjer hvis inni parantes er riktig
+Volume(Volume<0.00001) = 0.00001;
 Biomass(Biomass<0) = 0;
 Substrate(Substrate<0) = 0;
 CO2(CO2<0) = 0;
@@ -63,7 +63,7 @@ bp2_dot= - bp2* par.beta .* 1/(par.K_s.^par.p + Substrate.^par.p);
 bp_dot = -par.alpha.*bp - bp2_dot; 
 
 % Biomass_dot = -(par.F_in./Volume).*Biomass + S_cons.*Biomass - par.k_d.*Biomass;
-Biomass_dot = -(par.F_in./Volume).*Biomass + par.mu_maxx.*(1-bp./(bp+par.K_m1).*par.factor).*(Substrate./(Substrate+par.K_m2)).*Biomass -par.k_d.*Biomass;
+Biomass_dot = -(par.F_in./Volume).*Biomass + par.mu_maxx.*(1-bp./(bp+par.K_m1).*par.epsilon).*(Substrate./(Substrate+par.K_m2)).*Biomass -par.k_d.*Biomass;
 
 CO2_dot = par.mu_maxc.*(Substrate./(Substrate+par.K_m2)).*Biomass -par.q_air.*CO2;
 Volume_dot = par.F_in;
@@ -80,7 +80,7 @@ par.F_out = 0; %
 par.q_air = 2; %
 %%%%%%%%%%%%%%%%
 % 
-par.factor = 0.4;
+par.epsilon = 0.4;
 par.k_d = 0.02;
 par.K_s = 0.1;
 par.p = 8;
@@ -95,13 +95,6 @@ par.beta = 0.05;
 % par.K_m2 = 38;
 par.zeta = 0.01;
 
-
-% a = [11.90190144	0.035059804	0.367835874	0.526758427	0.724105474	9.956237004	16.18295954] %flag 2
-
-% a = [11.87480261	0.035132474	0.366242619	0.518829428	0.709846443
-% 9.978836854	15.89076649]; %flag 2 og 3
-
-% a = [11.36677373	0.035205144	0.360367183	0.46313813	0.687670035 9.999477849	13.91735641]; %flag 3
 a = [11.51992826	0.035285763	0.358040072	0.454093958	0.654094624	9.967065343	13.49702579]; %flag 3 MonteCarlo_500
 
 par.gamma = a(1);
@@ -119,8 +112,6 @@ par.K_m2 = a(7);
 % par.alpha = a(12);
 % par.beta = a(13);
 % par.zeta = a(14);
-
-
 
 end
 
@@ -164,29 +155,17 @@ function plotting(t,x)
     plot(tCO2,CO2m,"o","Color", "#77AC30")
     hold off
     ylim([0 25])
-    xlabel("Time (h)")
-    legend("Biomass [g/L]", "Glucose [g/L]", "CO_2 [%]")
+    xlabel("Time [h]")
+    legend("X [g/L]", "S [g/L]", "CO_2 [%]", "Measured X [g/L]", "Measured S [g/L]", "Measured CO_2 [%]")
     % saveas(gcf,path,"png")
     % close(1)
     
     figure(2)
-    subplot(2,1,1)
-    plot(t, Biomass,"Color","blue")
-    hold on
-    plot(t, Substrate,"Color","red")
-    plot(t, CO2, "Color", "#77AC30")
-    plot(tX,X,"o","Color","blue")
-    plot(tS,S,"o","Color","red")
-    plot(tCO2,CO2m,"o","Color", "#77AC30")
-    hold off
-    xlabel("Time (h)")
-    ylim([0 25])
-    legend("Biomass [g/L]", "Substrate [g/L]", "CO_2 [%]")
-    
-    subplot(2,1,2)
     plot(t, bp, "Color", "black")
     hold on
     plot(t,bp2,'--k')
     hold off
+    ylim([0 10])
+    xlabel("Time [h]")
     legend("bp [g/L] ","bp_2 [g/L] ")
 end

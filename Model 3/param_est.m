@@ -8,12 +8,10 @@ tspan = 0;
 load XSCt sol tspan
 exp=sol;
 
-%får ikkje den feilen med default metode, men resultat ser ikkje bra ut
 opts = optimset('TolFun', 1e-6, 'TolX', 1e-6, 'MaxIter', 150, 'Diagnostics', 'off', 'Display', 'iter');
 % opts = optimset('TolFun', 1e-12, 'TolX', 1e-6, 'MaxIter', 150,'Algorithm', 'levenberg-marquardt', 'Diagnostics', 'off', 'Display', 'iter'); 
 
 %minimize residual with lsqnonlin
-
 [res, RESNORM,RESIDUAL,EXITFLAG] = lsqnonlin(@residual,  log10 (initParams), log10 (loBound), log10 (upBound), opts);
 
 function R = residual(b)
@@ -42,14 +40,6 @@ par.mu_maxc = a(5);
 par.K_m1 = a(6);
 par.K_m2 = a(7);
 
-% 
-% par.factor = a(8);
-% par.k_d = a(9);
-% par.K_s = a(10);
-% par.p = a(11);
-% par.alpha = a(12);
-% par.beta = a(13);
-% par.zeta = a(14);
 
 % Initial conditions
 x0 = init_cond();
@@ -91,7 +81,7 @@ if addition
 end
 
 
-par.factor = 0.4;
+par.epsilon = 0.4;
 par.k_d = 0.02;
 par.K_s = 0.1;
 par.p = 8;
@@ -137,7 +127,7 @@ bp2_dot= - bp2* par.beta .* 1/(par.K_s.^par.p + Substrate.^par.p);
 bp_dot = -par.alpha.*bp - bp2_dot; 
 
 % Biomass_dot = -(par.F_in./Volume).*Biomass + S_cons.*Biomass - par.k_d.*Biomass;
-Biomass_dot = -(par.F_in./Volume).*Biomass + par.mu_maxx.*(1-bp./(bp+par.K_m1).*par.factor).*(Substrate./(Substrate+par.K_m2)).*Biomass -par.k_d.*Biomass;
+Biomass_dot = -(par.F_in./Volume).*Biomass + par.mu_maxx.*(1-bp./(bp+par.K_m1).*par.epsilon).*(Substrate./(Substrate+par.K_m2)).*Biomass -par.k_d.*Biomass;
 
 CO2_dot = par.mu_maxc.*(Substrate./(Substrate+par.K_m2)).*Biomass -par.q_air.*CO2;
 Volume_dot = par.F_in;

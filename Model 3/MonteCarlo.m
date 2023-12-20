@@ -11,21 +11,6 @@ end
 
 %% Function for defining bounds for initial parameters and returning arrays with upper and lower bounds
 
-% par.gamma = 10;
-% par.c = 0.63;
-% par.mu_maxs = 0.226;
-% par.mu_maxx = 0.8;
-% par.mu_maxc = 1.2143;
-% par.K_m1 = 8;  
-% par.K_m2 = 38;
-% 
-% par.factor = 0.4;
-% par.k_d = 0.02;
-% par.K_s = 0.1;
-% par.p = 8;
-% par.alpha = 0.12;
-% par.beta = 0.05;
-
 % Estimating:
 function [init_par_bounds, loBounds, upBounds] = bounds()
     init_par_bounds = [[5 50]; [0 1];[0 2]; [0 2];[0 2]; [1 10]; [10 50]];

@@ -60,48 +60,19 @@ plot(tCO2,CO2m,"o","Color", "#77AC30")
 rectangle('Position', [t1(end), 0 ,t3(1) - t1(end) , 25],'FaceColor', '#F0F0F0', 'LineStyle','--' );
 axis([0 50 0 25]);
 hold off
-xlabel("Time (h)")
-legend("Biomass [g/L]", "Glucose [g/L]", "CO2 [%]")
-% path = "C:\Users\silje\Documents\9.semester\Prosjekt_NyModell\NewModel_V4\Figures\SXCO2";
-% saveas(gcf,path,"png")
-% close(1)
-
-% figure()
-% hold on
-% plot(t1, Substrate)
-% plot(t1, Biomass)
-% plot(t1, CO2)
-% hold on
-% Biomass = x3(:, 2);
-% Substrate = x3(:, 3);
-% CO2 = x3(:, 4);
-% plot(t3, Substrate,	'Color', "#0072BD")
-% plot(t3, Biomass, 'Color', "#D95319")
-% plot(t3, CO2, 'Color', "#EDB120")
-% hold on
-% % rectangle(t1(end), 0 ,t3(end) - t1(end) , 20);
-% rectangle('Position', [t1(end), 0 ,t3(1) - t1(end) , 25],'FaceColor', '#D3D3D3', 'LineStyle',':' );
-% axis([0 50 0 25]);
-% hold off
-% t1(end)
-% t3(1)
+xlabel("Time [h]")
+% legend("Biomass [g/L]", "Glucose [g/L]", "CO2 [%]")
+legend("X [g/L]", "S [g/L]", "CO_2 [%]", "Measured X [g/L]", "Measured S [g/L]", "Measured CO_2 [%]")
 end
 
 % Function to define your differential equation
 function dxdt = diff_eq(t,x,par)
-
-% Define values for different variables 
-% Volume = max(x(1),0.0000001);
-% Biomass = max(x(2),0);
-% Substrate = max(x(3),0);
-% CO2 = max(x(4),0);
-
 Volume = x(1);
 Biomass = x(2);
 Substrate = x(3);
 CO2 = x(4);
 
-Volume(Volume<0.00001) = 0.00001; %skjer hvis inni parantes er riktig
+Volume(Volume<0.00001) = 0.00001; 
 Biomass(Biomass<0) = 0;
 Substrate(Substrate<0) = 0;
 CO2(CO2<0) = 0;
@@ -151,14 +122,6 @@ par.K_s = 20 ;
 par.k_d = 0.01258;
 par.Y_xs = 9.1688E-22;
 par.Y_xco2 = 9.4948E-22;
-
-a = [3.06885E-22	20	0.012580113	9.36886E-22	1.02685E-21];
-
-par.mu_max = a(1);
-par.K_s = a(2);
-par.k_d = a(3);
-par.Y_xs = a(4);
-par.Y_xco2 = a(5);
 end
 
 % function par = param2()

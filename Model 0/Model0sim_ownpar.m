@@ -62,8 +62,8 @@ plot(tCO2,CO2m,"o","Color", "#77AC30")
 hold off
 xlabel("Time (h)")
 ylim([0 25])
-legend("Biomass", "Glucose", "CO2")
-legend("Biomass [g/L]", "Glucose [g/L]", "CO2 [%]")
+% legend("Biomass [g/L]", "Glucose [g/L]", "CO2 [%]")
+legend("X [g/L]", "S [g/L]", "CO_2 [%]", "Measured X [g/L]", "Measured S [g/L]", "Measured CO_2 [%]")
 end
 
 % Function to define your differential equation

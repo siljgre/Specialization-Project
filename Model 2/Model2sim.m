@@ -43,7 +43,7 @@ alpha=x(7);
 alpha2=x(8);
 
 %defining lower boundaries for all states
-Volume(Volume<0.00001) = 0.00001; %skjer hvis inni parantes er riktig
+Volume(Volume<0.00001) = 0.00001;
 Biomass(Biomass<0) = 0;
 Substrate(Substrate<0) = 0;
 CO2(CO2<0) = 0;
@@ -149,30 +149,20 @@ function plotting(t,x)
     plot(tCO2,CO2m,"o","Color", "#77AC30")
     hold off
     ylim([0 25])
-    xlabel("Time (h)")
-    legend("Biomass [g/L]", "Substrate [g/L]", "CO_2 [%]")
+    xlabel("Time [h]")
+    % legend("Biomass [g/L]", "Substrate [g/L]", "CO_2 [%]")
+    legend("X [g/L]", "S [g/L]", "CO_2 [%]", "Measured X [g/L]", "Measured S [g/L]", "Measured CO_2 [%]")
     % saveas(gcf,path,"png")
     % close(1)
     
     figure(2)
-    subplot(2,1,1)
-    plot(t, Biomass,"Color","blue")
-    hold on
-    plot(t, Substrate,"Color","red")
-    plot(t, CO2, "Color", "#77AC30")
-    plot(tX,X,"o","Color","blue")
-    plot(tS,S,"o","Color","red")
-    plot(tCO2,CO2m,"o","Color", "#77AC30")
-    hold off
-    xlabel("Time (h)")
-    legend("Biomass [g/L]", "Substrate [g/L]", "CO_2 [%]")
-    
-    subplot(2,1,2)
     plot(t, bp, "Color", "black")
     hold on
     plot(t,bp2,'--k')
     plot(t,alpha,'-b')
     plot(t,alpha2,"--b")
     hold off
-    legend("bp","bp_2","{\lambda_1}", "{\lambda_2}") %used lambda in report so alpha = lambda
+    ylim([0 10])
+    xlabel("Time [h]")
+    legend("bp [g/L]","bp_2 [g/L]","{\lambda_1}", "{\lambda_2}") %used lambda in report so alpha = lambda
 end
